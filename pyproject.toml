@@ -1,6 +1,6 @@
 [project]
 name = "enot-vp"
-version = "0.1.0"
+dynamic = ["version"]
 description = "ENOT video processor package for iterating over video frames easily."
 readme = "README.md"
 authors = [
@@ -22,5 +22,11 @@ license-files = ["LICEN[CS]E*"]
 Repository = "https://github.com/Ruhrozz/enot-vp.git"
 
 [build-system]
-requires = ["hatchling"]
+requires = [
+  "hatchling",
+  "hatch-vcs",
+]
 build-backend = "hatchling.build"
+
+[tool.hatch]
+version.source = "vcs"
