@@ -1,0 +1,1 @@
+from enot_vp.video_processor import VideoProcessor as VideoProcessor

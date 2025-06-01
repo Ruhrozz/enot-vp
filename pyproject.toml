@@ -1,0 +1,23 @@
+[project]
+name = "enot-vp"
+version = "0.1.0"
+description = "ENOT video processor package for iterating over video frames easily."
+readme = "README.md"
+authors = [
+    { name = "Malofeev Ivan", email = "ruhrozz@bk.ru" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "av>=14.4.0",
+    "numpy>=2.0.2",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
