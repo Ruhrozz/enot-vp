@@ -61,7 +61,6 @@ wheels = [
 
 [[package]]
 name = "enot-vp"
-version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "av" },
@@ -72,7 +71,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "av", specifier = ">=14.4.0" },
-    { name = "numpy", specifier = ">=2.0.2" },
+    { name = "numpy", specifier = ">=1.21.0" },
 ]
 
 [[package]]
