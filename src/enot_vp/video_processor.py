@@ -1,9 +1,10 @@
+from typing import Optional, Union
 import av
 import numpy as np
 
 
 class VideoProcessor:
-    def __init__(self, input_video: str, output_video: str | None = None):
+    def __init__(self, input_video: str, output_video: Optional[str] = None):
         self.input_video = input_video
         self.output_video = output_video
         self.input_container = None
@@ -62,7 +63,7 @@ class VideoProcessor:
             self._frame_iterator.close()
             raise
 
-    def put(self, processed_frame: av.VideoFrame | np.ndarray):
+    def put(self, processed_frame: Union[av.VideoFrame, np.ndarray]):
         """Add video frame to output video."""
         if self.output_container is None:
             raise RuntimeError("No output video specified in constructor")
