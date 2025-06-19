@@ -4,9 +4,10 @@ import numpy as np
 
 
 class VideoProcessor:
-    def __init__(self, input_video: str, output_video: Optional[str] = None):
+    def __init__(self, input_video: str, output_video: Optional[str] = None, output_codec: str = "hevc"):
         self.input_video = input_video
         self.output_video = output_video
+        self._output_codec = output_codec
         self.input_container = None
         self.output_container = None
         self.input_stream = None
@@ -22,7 +23,7 @@ class VideoProcessor:
         if self.output_video:
             self.output_container = av.open(self.output_video, mode="w")
             self.output_stream = self.output_container.add_stream(
-                codec_name="hevc",
+                codec_name=self._output_codec,
                 rate=self.input_stream.average_rate,
                 width=self.input_stream.width,
                 height=self.input_stream.height,
