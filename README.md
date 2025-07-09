@@ -7,7 +7,7 @@ Provides methods for reading from video and writing modified video frames.
 
 Reading
 
-```
+```python
 from enot_vp import VideoProcessor
 from ultralytics import YOLO
 
@@ -20,7 +20,7 @@ with VideoProcessor(input_video=VIDEO_PATH) as vp:
 
 Modification
 
-```
+```python
 from enot_vp import VideoProcessor
 from ultralytics import YOLO
 
