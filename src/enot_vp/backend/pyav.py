@@ -7,6 +7,9 @@ import av
 import numpy as np
 
 
+av.logging.set_level(av.logging.PANIC)
+
+
 class PyAVInputBackend:
     def __init__(self, input_video, **kwargs) -> None:
         del kwargs
@@ -16,7 +19,7 @@ class PyAVInputBackend:
 
     def close(self):
         self._container.close()
-    
+
     def __len__(self):
         return self._container.streams.video[0].frames
 
@@ -52,6 +55,7 @@ class PyAVOutputBackend:
             rate=rate,
             width=width,
             height=height,
+            options={"x265-params": "log_level=none"},
         )
         if not isinstance(self.stream, av.VideoStream):
             warnings.warn(f"Got {type(self.stream)} instead of {av.VideoStream}! It might not work as expected.")
