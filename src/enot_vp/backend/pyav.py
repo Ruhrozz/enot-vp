@@ -4,6 +4,7 @@ from fractions import Fraction
 from typing import Optional
 from collections.abc import Iterator
 import av
+import cv2
 import numpy as np
 
 
@@ -16,13 +17,31 @@ class PyAVInputBackend:
         self._container = av.open(input_video)
         self.stream = self._container.streams.video[0]
         self._frame_iterator = self._container.decode(self.stream)
+        self._frame_count = self._get_frame_count(input_video)
         self.timestamp: float | None = None
+
+    def _get_frame_count(self, input_video) -> int:
+        capture = cv2.VideoCapture(str(input_video))
+        if not capture.isOpened():
+            warnings.warn("OpenCV failed to open the input video. Falling back to PyAV frame count.")
+            return max(int(self.stream.frames), 0)
+
+        try:
+            frame_count = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
+        finally:
+            capture.release()
+
+        if frame_count < 0:
+            warnings.warn("OpenCV returned an invalid frame count. Falling back to PyAV frame count.")
+            return max(int(self.stream.frames), 0)
+
+        return frame_count
 
     def close(self):
         self._container.close()
 
     def __len__(self):
-        return self._container.streams.video[0].frames
+        return self._frame_count
 
     def __iter__(self) -> Iterator[np.ndarray]:
         return self

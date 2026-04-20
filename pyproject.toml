@@ -10,6 +10,7 @@ requires-python = ">=3.9"
 dependencies = [
     "av>=14.4.0",
     "numpy>=1.21.0",
+    "opencv-python-headless>=4.13.0.92",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
