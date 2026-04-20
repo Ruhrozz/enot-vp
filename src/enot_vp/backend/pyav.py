@@ -16,6 +16,7 @@ class PyAVInputBackend:
         self._container = av.open(input_video)
         self.stream = self._container.streams.video[0]
         self._frame_iterator = self._container.decode(self.stream)
+        self.timestamp: float | None = None
 
     def close(self):
         self._container.close()
@@ -29,6 +30,10 @@ class PyAVInputBackend:
     def __next__(self) -> np.ndarray:
         try:
             video_frame = next(self._frame_iterator)
+            if video_frame.pts is None:
+                self.timestamp = None
+            else:
+                self.timestamp = float(video_frame.pts * video_frame.time_base)
             return video_frame.to_rgb().to_ndarray()
         except StopIteration:
             self._container.close()

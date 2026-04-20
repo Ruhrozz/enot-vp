@@ -13,6 +13,7 @@ import numpy as np
 
 with VideoProcessor(input_video=VIDEO_PATH) as vp:
     for frame in vp:
+        print(vp.timestamp)
         print(np.mean(frame))
 ```
 

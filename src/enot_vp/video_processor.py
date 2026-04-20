@@ -43,6 +43,14 @@ class VideoProcessor:
     def __len__(self):
         return len(self.input_backend) if self.input_backend is not None else 0
 
+    @property
+    def timestamp(self) -> float:
+        if self.input_backend is None:
+            raise RuntimeError("Timestamp is available only for `input_video`.")
+        if self.input_backend.timestamp is None:
+            raise RuntimeError("Timestamp is not available for the current frame.")
+        return self.input_backend.timestamp
+
     def __enter__(self):
         return self
 
